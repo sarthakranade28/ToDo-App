@@ -1,140 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App</title>
-    <style>
-        body {
-           padding: 0;
-           margin: 0;
-           background-color: #f2a634;
-        }
-        .container {
-           display: flex;
-           align-items: center;
-           justify-content: center;
-           background-color: #ba3713;
-           padding: 20px;
-        }
-        .container-img {
-           height: 64px;
-              margin-right: 10px;
-              margin-left: 110px;
-        }
-        .todo-add-container{
-            margin-top: 50px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        #todo-input{
-            padding:5px 20px;
-            width: 40%;
-            margin-right: 10px;
-            font-size: 20px;
-            border: 1px solid black;
-        }
-        #add-btn{
-            padding: 10px 50px;
-            border-radius: 20px;
-            font-size: 16px;
-            border: none;
-            background-color: #000000;
-            color: white;
-            cursor: pointer;
-        }
-        #todo-items-container{
-            margin-top: 30px;
-            width: 100%;
-        }
-        .todo-item{
-            background-color: #be2118;
-            color: white;
-            padding: 10px;
-            margin: 10px auto;
-            width: 40%;
-            border-radius: 10px;
-            font-size: 18px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .delete-btn{
-            height: 30px;
-            width: 30px;
-            cursor: pointer;
-        }
-        #clear-btn{
-            display: block;
-            margin: 30px auto;
-            padding: 10px 50px;
-            border-radius: 20px;
-            font-size: 16px;
-            border: none;
-            background-color: #150505;
-            color: white;
-            cursor: pointer;
-        }
-        @media screen  and (max-width: 600px) {
-            #todo-input {
-                width: 80%;
-            }
-             .todo-item {
-                width: 80%;
-            }
-            .container-img {
-                margin-left: 20px;
-            }
-            
-        }
-        </style>
-</head>
-<body>
-    <div class="container">
-    <img src="list.png" alt="To-Do List Image" class="container-img" />
-     <h1> My To-Do List</h1>
-    </div>
-     <div class="todo-add-container">
-        <input type="text" id="todo-input" placeholder="Add a new task" />
-        <button id="add-btn" onclick="addTodoItem()">Add Task</button>
-     </div>
-      <div id="todo-items-container"></div>
-      <button id="clear-btn" onclick="clearAllTodoItems()">Clear All Tasks</button>
-     <script>
-        const todoItems = ["Wake up early", "Exercise for 15 minutes"," Study for 1 hour", "Practice coding questions"];
-
-        function displayTodoItems() {
-            const todoItemsContainer = document.getElementById("todo-items-container");
-            todoItemsContainer.innerHTML = "";
-
-            for(let i = 0; i < todoItems.length; i++) {
-                todoItemsContainer.innerHTML += `<div class="todo-item">${todoItems[i]}
-                    <img src="delete.png" onclick="deleteTodoItem(${i})" class="delete-btn" alt="Delete"></div>`;
-            }
-   
-        }
-         displayTodoItems();
-        function addTodoItem() {
-            const todoInput = document.getElementById("todo-input");
-            const newtodoitem = todoInput.value;
-            if(!newtodoitem.trim()) {
-                alert("Please enter a valid task.");
-                return;
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>To-Do App</title> 
+    <style> 
+        body { 
+           padding: 0; 
+           margin: 0; 
+           background-color: #f2a634; 
+        } 
+        .container { 
+           display: flex; 
+           align-items: center; 
+           justify-content: center; 
+           background-color: #ba3713; 
+           padding: 20px; 
+        } 
+        .container-img { 
+           height: 64px; 
+              margin-right: 10px; 
+              margin-left: 110px; 
+        } 
+        .todo-add-container{ 
+            margin-top: 50px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+        } 
+        #todo-input{ 
+            padding:5px 20px; 
+            width: 40%; 
+            margin-right: 10px; 
+            font-size: 20px; 
+            border: 1px solid black; 
+        } 
+        #add-btn{ 
+            padding: 10px 50px; 
+            border-radius: 20px; 
+            font-size: 16px; 
+            border: none; 
+            background-color: #000000; 
+            color: white; 
+            cursor: pointer; 
+        } 
+        #todo-items-container{ 
+            margin-top: 30px; 
+            width: 100%; 
+        } 
+        .todo-item{ 
+            background-color: #be2118; 
+            color: white; 
+            padding: 10px; 
+            margin: 10px auto; 
+            width: 40%; 
+            border-radius: 10px; 
+            font-size: 18px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+        } 
+        .delete-btn{ 
+            height: 30px; 
+            width: 30px; 
+            cursor: pointer; 
+        } 
+        #clear-btn{ 
+            display: block; 
+            margin: 30px auto; 
+            padding: 10px 50px; 
+            border-radius: 20px; 
+            font-size: 16px; 
+            border: none; 
+            background-color: #150505; 
+            color: white; 
+            cursor: pointer; 
+        } 
+        @media screen  and (max-width: 600px) { 
+            #todo-input { 
+                width: 80%; 
             } 
-          todoItems.push(newtodoitem);
-          todoInput.value = "";
-          displayTodoItems();
-            }
-        function deleteTodoItem(index) {
-            todoItems.splice(index, 1);
-            displayTodoItems();
-        }
-        function clearAllTodoItems() {
-            todoItems.length = 0;
-            displayTodoItems();
-        }
-    </script>
+             .todo-item { 
+                width: 80%; 
+            } 
+            .container-img { 
+                margin-left: 20px; 
+            } 
+             
+        } 
+        </style> 
+</head> 
+<body> 
+    <div class="container"> 
+    <img src="list.png" alt="To-Do List Image" class="container-img" /> 
+     <h1> My To-Do List</h1> 
+    </div> 
+     <div class="todo-add-container"> 
+        <input type="text" id="todo-input" placeholder="Add a new task" /> 
+        <button id="add-btn" onclick="addTodoItem()">Add Task</button> 
+     </div> 
+      <div id="todo-items-container"></div> 
+      <button id="clear-btn" onclick="clearAllTodoItems()">Clear All Tasks</button> 
+     <script> 
 
-</body>
+        const savedTodoItems = localStorage.getItem("todoItems");
+
+        const todoItems = savedTodoItems 
+            ? JSON.parse(savedTodoItems) 
+            : ["Wake up early", "Exercise for 15 minutes"," Study for 1 hour", "Practice coding questions"]; 
+
+        function saveTodoItems() {
+            localStorage.setItem("todoItems", JSON.stringify(todoItems));
+        }
+ 
+        function displayTodoItems() { 
+            const todoItemsContainer = document.getElementById("todo-items-container"); 
+            todoItemsContainer.innerHTML = ""; 
+ 
+            for(let i = 0; i < todoItems.length; i++) { 
+                todoItemsContainer.innerHTML += `<div class="todo-item">${todoItems[i]} 
+                    <img src="delete.png" onclick="deleteTodoItem(${i})" class="delete-btn" alt="Delete"></div>`; 
+            } 
+    
+        } 
+         displayTodoItems(); 
+
+        function addTodoItem() { 
+            const todoInput = document.getElementById("todo-input"); 
+            const newtodoitem = todoInput.value; 
+
+            if(!newtodoitem.trim()) { 
+                alert("Please enter a valid task."); 
+                return; 
+            }  
+
+            todoItems.push(newtodoitem); 
+
+            saveTodoItems();
+
+            todoInput.value = ""; 
+            displayTodoItems(); 
+        } 
+
+        function deleteTodoItem(index) { 
+            todoItems.splice(index, 1); 
+
+            saveTodoItems();
+
+            displayTodoItems(); 
+        } 
+
+        function clearAllTodoItems() { 
+            todoItems.length = 0; 
+
+            saveTodoItems();
+
+            displayTodoItems(); 
+        } 
+
+    </script> 
+ 
+</body> 
 </html>
